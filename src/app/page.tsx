@@ -11,7 +11,7 @@ export default function Home() {
   const [step,setStep] = useState("menu")
 
   return (
-    <div className="bg-white w-screen h-screen flex">
+    <div className="w-screen h-screen flex">
       <AdminControllerBar setStep = {setStep} />
       {step === "menu" && <FoodMenu />}
       {step === "orders" && <Orders/>}

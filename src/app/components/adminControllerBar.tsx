@@ -1,4 +1,3 @@
-import { useState } from "react"
 import FoodMenuIcon from "./icons/foodMenuIcon"
 import NomNomIcon from "./icons/NomNomLogo"
 import OrderIcon from "./icons/orderIcon"
@@ -20,7 +19,7 @@ const AdminControllerBar = ({setStep}:{setStep :(value: string)=> void}) => {
 
 
   return(
-    <div className="w-[15%] h-full py-8 px-5">
+    <div className="w-[15%] h-screen py-8 px-5 bg-white">
         <NomNomIcon />
         <div className=" flex flex-col gap-4 mt-8">
             <button className={`flex py-2 px-3 w-full justify-center items-center gap-2 rounded-full ${setStep} = "menu" ? " bg-black text-white" : "bg-white text-black"`} 

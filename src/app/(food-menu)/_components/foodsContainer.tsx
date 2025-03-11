@@ -1,7 +1,9 @@
+'use client'
+
 import { catchCategories, catchFoods } from "@/utils/axios"
-import axios from "axios"
 import { useEffect, useState } from "react"
 import FoodCard from "./foodCard"
+import AddNewDish from "./addNewDish/addNewDish"
 
 
 type Categories = {
@@ -29,13 +31,16 @@ const FoodContainer = () => {
 
 
 
+
     return (
         <div className="w-full h-auto mt-9 flex flex-col gap-4">
             {
-                categories.map((item, id) => (
-                    <div key={id} className="mt-4 rounded-lg bg-white py-8 px-5" >
-                        <div className="text-[20px] text-black font-semibold">{item.category} {item.category}</div>
-                        <FoodCard category={item._id}/>
+                categories.map((item, i) => (
+                    <div key={i} className="mt-4 rounded-lg bg-white py-8 px-5" >
+                        <div className="text-[20px] text-black font-semibold">{item.category} </div>
+                        <div className="flex gap-5 ">
+                            <FoodCard category={item._id} categoryName= {item.category}/>
+                        </div>
                     </div>
                 ))
             }

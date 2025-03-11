@@ -7,7 +7,7 @@ const CrossIcon = () => (
     fill="none"
   >
     <path
-      stroke="#FAFAFA"
+      stroke="#ffffff"
       strokeLinecap="round"
       strokeLinejoin="round"
       d="M8 3.333v9.334M3.333 8h9.334"
