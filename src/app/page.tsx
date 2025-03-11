@@ -1,23 +1,21 @@
 'use client'
 
-import { useEffect } from "react";
-import axios from "axios";
+import FoodMenu from "./(food-menu)/_features/menu";
+import Orders from "./(orders)/_features/orders";
+import Settings from "./(settings)/_features/menu";
 import AdminControllerBar from "./components/adminControllerBar";
+import { useState } from "react";
 
 export default function Home() {
-
-  // useEffect(()=>{
-  //   const getData = async () => {
-  //     const response =  await axios.get("http://localhost:9999/service")
-  //     console.log(response.data)
-  //   }
-  //   getData()
-  // },[])
-
+   
+  const [step,setStep] = useState("menu")
 
   return (
-    <div className="bg-white w-screen h-screen">
-      <AdminControllerBar/>
+    <div className="bg-white w-screen h-screen flex">
+      <AdminControllerBar setStep = {setStep} />
+      {step === "menu" && <FoodMenu />}
+      {step === "orders" && <Orders/>}
+      {step === "settings" && <Settings />}
     </div>
   );
 }
