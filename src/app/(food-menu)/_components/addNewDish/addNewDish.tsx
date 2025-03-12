@@ -6,8 +6,6 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-    DialogFooter,
-    DialogClose
 } from "@/components/ui/dialog"
 
 import AddNewDishContent from "./addNewDishContent"
@@ -38,15 +36,6 @@ const AddNewDish = ({ categoryName }: CategoryNameProps) => {
                 </DialogHeader>
                 <AddNewDishContent />
 
-                <DialogFooter className="sm:justify-start">
-                    <div className="flex justify-end">
-                        <DialogClose asChild>
-                            <button className="bg-black text-white rounded-lg py-2 px-4 text-[14px]">
-                                Add Dish
-                            </button>
-                        </DialogClose>
-                    </div>
-                </DialogFooter>
             </DialogContent>
         </Dialog>
     )
