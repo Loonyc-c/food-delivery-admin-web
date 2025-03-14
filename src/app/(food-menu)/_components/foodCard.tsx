@@ -37,8 +37,12 @@ const FoodCard = ({ category,categoryName }: FoodCardProps) => {
     }, []);
 
 
-
     const filteredFoods = foods.filter(food => food.category === category);
+
+    const categoryId = filteredFoods.length > 0 ? filteredFoods[0].categoryId : null;
+
+
+    console.log(filteredFoods)
 
 
     return (
