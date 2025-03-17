@@ -13,9 +13,10 @@ import AddNewDishContent from "./addNewDishContent"
 
 type CategoryNameProps = {
     categoryName: string
+    categoryId:string
 }
 
-const AddNewDish = ({ categoryName }: CategoryNameProps) => {
+const AddNewDish = ({ categoryName,categoryId }: CategoryNameProps) => {
 
     return (
 
@@ -34,12 +35,11 @@ const AddNewDish = ({ categoryName }: CategoryNameProps) => {
 
                     </DialogDescription>
                 </DialogHeader>
-                <AddNewDishContent />
+                <AddNewDishContent categoryId={categoryId}/>
 
             </DialogContent>
         </Dialog>
     )
 }
-
 
 export default AddNewDish

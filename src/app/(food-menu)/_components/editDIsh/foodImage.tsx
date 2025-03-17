@@ -6,7 +6,7 @@ type FoodImageUrlProps = {
     setImage: Dispatch<SetStateAction<FormData | undefined>>
 }
 
-const FoodImage = ({ setImage: setImageFood }: FoodImageUrlProps) => {
+const FoodImageEdit = ({ setImage: setImageFood }: FoodImageUrlProps) => {
 
     const uploudPreset = "food_delivery"
     const apiKey = "192382554631654"
@@ -66,4 +66,4 @@ const FoodImage = ({ setImage: setImageFood }: FoodImageUrlProps) => {
     )
 }
 
-export default FoodImage
+export default FoodImageEdit

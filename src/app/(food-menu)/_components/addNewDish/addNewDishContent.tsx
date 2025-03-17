@@ -12,9 +12,28 @@ import FoodIngredients from "./foodIngredients"
 import FoodImage from "./foodImage"
 import axios from "axios"
 
-const AddNewDishContent = () => {
 
-    const [foodValue, setFoodValue] = useState({})
+type FoodValue = {
+    foodName: string
+    foodPrice: number
+    imageUrl: string
+    ingerdients: string
+}
+
+type PropsType = {
+    categoryId:string
+}
+
+const AddNewDishContent = ({categoryId}:PropsType) => {
+
+    const [foodValue, setFoodValue] = useState<FoodValue>({
+        foodName: "",
+        foodPrice: 0,
+        imageUrl: "",
+        ingerdients: ""
+    });
+
+    const [image, setImage] = useState<FormData>()
 
     const handleFoodNameValue = (value: string) => {
         setFoodValue({ ...foodValue, foodName: value })
@@ -26,21 +45,34 @@ const AddNewDishContent = () => {
     const handleFoodIngredientsValue = (value: string) => {
         setFoodValue({ ...foodValue, ingerdients: value })
     }
-    const handleImageUrl = (value: string) => {
-        setFoodValue({ ...foodValue, ImageUrl: value })
-    }
 
-    const handleAddDishButton = async () =>{ 
+    const handleAddDishButton = async () => {
         try {
-            const response = await axios.post("http://localhost:9999/food", {
+            const cloudinaryResponse = await axios.post(
+                'https://api.cloudinary.com/v1_1/ddeq6vbyn/image/upload', 
+                image, 
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+            
+            const imageUrl = cloudinaryResponse.data.secure_url;
+            console.log(imageUrl)
+            
+            const foodResponse = await axios.post("http://localhost:9999/food", {
                 foodName: foodValue.foodName,
                 price: foodValue.foodPrice,
-                image:foodValue.ImageUrl,
-                ingredients:foodValue.ingerdients,
+                image: imageUrl,
+                ingredients: foodValue.ingerdients,
+                category:categoryId
+
             });
-            console.log("CreatedFood successfully sent to DB:", response.data);
+            
+            console.log("Food added successfully:", foodResponse.data);
         } catch (error) {
-            console.error(`Error posting password to DB:`, error);
+            console.error(`Error adding food:`, error);
         }
     }
 
@@ -52,12 +84,13 @@ const AddNewDishContent = () => {
                     <FoodPrice foodPrice={handleFoodPriceValue} />
                 </div>
                 <FoodIngredients foodIngredients={handleFoodIngredientsValue} />
-                <FoodImage foodImageUrl={handleImageUrl} />
+                <FoodImage setImage={setImage} />
             </div>
             <DialogFooter className="mt-5">
                 <div className="flex justify-end">
                     <DialogClose asChild>
-                        <button className="bg-black text-white rounded-lg py-2 px-4 text-[14px]">
+                        <button className="bg-black text-white rounded-lg py-2 px-4 text-[14px]"
+                        onClick={handleAddDishButton}>
                             Add Dish
                         </button>
                     </DialogClose>
@@ -65,6 +98,6 @@ const AddNewDishContent = () => {
             </DialogFooter>
         </div>
     )
-}
 
+}
 export default AddNewDishContent

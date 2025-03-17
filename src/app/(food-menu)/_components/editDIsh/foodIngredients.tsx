@@ -7,7 +7,7 @@ type FoodIngredientsProps = {
     foodIngredients: (foodIngredients: string) => void;
 }
 
-const FoodIngredients = ({foodIngredients}:FoodIngredientsProps) => {
+const FoodIngredientsEdit = ({foodIngredients}:FoodIngredientsProps) => {
 
     const [ingredients, setIngredients] = useState("")
 
@@ -30,4 +30,4 @@ const FoodIngredients = ({foodIngredients}:FoodIngredientsProps) => {
     )
 }
 
-export default FoodIngredients
+export default FoodIngredientsEdit

@@ -7,7 +7,7 @@ type FoodPriceProps = {
     foodPrice: (foodPrice: number) => void;
 }
 
-const FoodPrice = ({foodPrice}:FoodPriceProps) => {
+const FoodPriceEdit = ({foodPrice}:FoodPriceProps) => {
 
     const [price,setPrice] = useState(0)
 
@@ -20,7 +20,7 @@ const FoodPrice = ({foodPrice}:FoodPriceProps) => {
 
     return (
 
-        <div className="w-[50%] h-auto">
+        <div className="w-full h-auto">
             <p>Price</p>
             <input
                 className="border rounded-lg p-2 text-[14px] w-full h-auto"
@@ -31,4 +31,4 @@ const FoodPrice = ({foodPrice}:FoodPriceProps) => {
     )
 }
 
-export default FoodPrice
+export default FoodPriceEdit
