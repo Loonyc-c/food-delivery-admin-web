@@ -45,9 +45,6 @@ const FoodCard = ({ categoryId, categoryName }: FoodCardProps) => {
         console.log("Selected Food ID:", id);
     }
 
-    console.log(selectedFoodId)
-
-
     return (
         <div className="flex flex-wrap  gap-5 ">
             <AddNewDish categoryName={categoryName} categoryId={categoryId} />

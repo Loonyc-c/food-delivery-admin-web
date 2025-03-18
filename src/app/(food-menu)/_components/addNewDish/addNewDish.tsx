@@ -1,4 +1,4 @@
-import CrossIcon from "../../ui/crossIcon"
+import CrossIcon from "../../_ui/crossIcon"
 import {
     Dialog,
     DialogContent,

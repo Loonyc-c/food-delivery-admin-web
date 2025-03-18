@@ -2,7 +2,7 @@
 
 import { catchCategories, catchFoods } from "@/utils/axios";
 import { useEffect, useState } from "react"
-import CrossIcon from "../ui/crossIcon";
+import CrossIcon from "../_ui/crossIcon";
  
 
 type Categories = {

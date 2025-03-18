@@ -7,8 +7,9 @@ import {
 } from "@/components/ui/dialog"
 
 import FoodNameEdit from "./foodName"
-import FoodPriceEdit from "./foodPrice"
 import FoodIngredientsEdit from "./foodIngredients"
+import FoodPriceEdit from "./foodPrice"
+import FoodCategoryEdit from "./foodCategory"
 type FoodValue = {
     foodName: string
     foodPrice: number
@@ -41,6 +42,7 @@ const EditDishContent = () => {
                 <FoodNameEdit foodNameValue={handleFoodNameValue} />
                 <FoodPriceEdit foodPrice={handleFoodPriceValue} />
                 <FoodIngredientsEdit foodIngredients={handleFoodIngredientsValue}/>
+                <FoodCategoryEdit />
             </div>
             <DialogFooter className="mt-5">
                 <div className="flex justify-end">

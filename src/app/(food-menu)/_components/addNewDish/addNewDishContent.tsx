@@ -11,6 +11,7 @@ import FoodPrice from "./foodPrice"
 import FoodIngredients from "./foodIngredients"
 import FoodImage from "./foodImage"
 import axios from "axios"
+import * as yup from "yup"
 
 
 type FoodValue = {
@@ -24,6 +25,8 @@ type PropsType = {
     categoryId:string
 }
 
+
+const foodValidationSchema = yup
 const AddNewDishContent = ({categoryId}:PropsType) => {
 
     const [foodValue, setFoodValue] = useState<FoodValue>({
