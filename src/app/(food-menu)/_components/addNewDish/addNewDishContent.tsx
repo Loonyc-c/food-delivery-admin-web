@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from "react"
 import {
     DialogClose,
     DialogFooter
@@ -11,95 +10,83 @@ import FoodPrice from "./foodPrice"
 import FoodIngredients from "./foodIngredients"
 import FoodImage from "./foodImage"
 import axios from "axios"
-import * as yup from "yup"
-
-
-type FoodValue = {
-    foodName: string
-    foodPrice: number
-    imageUrl: string
-    ingerdients: string
-}
+import { Formik, Form } from "formik"
+import { foodValidationSchema } from "../_utils/validationSchemas"
 
 type PropsType = {
-    categoryId:string
+    categoryId: string
 }
 
-
-const foodValidationSchema = yup
-const AddNewDishContent = ({categoryId}:PropsType) => {
-
-    const [foodValue, setFoodValue] = useState<FoodValue>({
-        foodName: "",
-        foodPrice: 0,
-        imageUrl: "",
-        ingerdients: ""
-    });
-
-    const [image, setImage] = useState<FormData>()
-
-    const handleFoodNameValue = (value: string) => {
-        setFoodValue({ ...foodValue, foodName: value })
-    }
-
-    const handleFoodPriceValue = (value: number) => {
-        setFoodValue({ ...foodValue, foodPrice: value })
-    }
-    const handleFoodIngredientsValue = (value: string) => {
-        setFoodValue({ ...foodValue, ingerdients: value })
-    }
-
-    const handleAddDishButton = async () => {
+const AddNewDishContent = ({ categoryId }: PropsType) => {
+    const handleAddDishButton = async (values: any, { setSubmitting }: any) => {
         try {
             const cloudinaryResponse = await axios.post(
-                'https://api.cloudinary.com/v1_1/ddeq6vbyn/image/upload', 
-                image, 
+                'https://api.cloudinary.com/v1_1/ddeq6vbyn/image/upload',
+                values.image,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
                 }
             );
-            
-            const imageUrl = cloudinaryResponse.data.secure_url;
-            console.log(imageUrl)
-            
-            const foodResponse = await axios.post("http://localhost:9999/food", {
-                foodName: foodValue.foodName,
-                price: foodValue.foodPrice,
-                image: imageUrl,
-                ingredients: foodValue.ingerdients,
-                category:categoryId
 
+            const imageUrl = cloudinaryResponse.data.secure_url;
+            console.log(imageUrl);
+
+            const foodResponse = await axios.post("http://localhost:9999/food", {
+                foodName: values.foodName,
+                price: values.foodPrice,
+                image: imageUrl,
+                ingredients: values.ingerdients,
+                category: categoryId,
             });
-            
+
             console.log("Food added successfully:", foodResponse.data);
+            setSubmitting(false);
         } catch (error) {
             console.error(`Error adding food:`, error);
+            setSubmitting(false);
         }
-    }
+    };
 
     return (
-        <div >
-            <div className="flex flex-col gap-3">
-                <div className="flex gap-5">
-                    <FoodName value={handleFoodNameValue} />
-                    <FoodPrice foodPrice={handleFoodPriceValue} />
-                </div>
-                <FoodIngredients foodIngredients={handleFoodIngredientsValue} />
-                <FoodImage setImage={setImage} />
-            </div>
-            <DialogFooter className="mt-5">
-                <div className="flex justify-end">
-                    <DialogClose asChild>
-                        <button className="bg-black text-white rounded-lg py-2 px-4 text-[14px]"
-                        onClick={handleAddDishButton}>
-                            Add Dish
-                        </button>
-                    </DialogClose>
-                </div>
-            </DialogFooter>
-        </div>
+
+        <Formik
+            initialValues={{
+                foodName: "",
+                foodPrice: 0,
+                image: "null",
+                ingerdients: ""
+            }}
+            validationSchema={foodValidationSchema}
+            onSubmit={handleAddDishButton}
+        >
+            {({ setFieldValue, isSubmitting }) => (
+                <Form>
+                    <div className="flex flex-col gap-3">
+                        <div className="flex gap-5">
+                            <FoodName value={(value: string) => setFieldValue("foodName", value)} />
+                            <FoodPrice foodPrice={(value: number) => setFieldValue("foodPrice", value)} />
+                        </div>
+                        <FoodIngredients foodIngredients={(value: string) => setFieldValue("ingerdients", value)} />
+                        <FoodImage setImage={(setImage: FormData) => setFieldValue("image", setImage)} />
+                    </div>
+                    <DialogFooter className="mt-5">
+                        <div className="flex justify-end">
+                            <DialogClose asChild>
+                                <button
+                                    type="submit"
+                                    className="bg-black text-white rounded-lg py-2 px-4 text-[14px]"
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? "Adding..." : "Add Dish"}
+                                </button>
+                            </DialogClose>
+                        </div>
+                    </DialogFooter>
+                </Form>
+            )}
+        </Formik>
     )
 
 }

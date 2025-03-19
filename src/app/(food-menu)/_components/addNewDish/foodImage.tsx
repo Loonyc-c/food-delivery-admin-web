@@ -1,9 +1,7 @@
-import { headers } from "next/headers";
-import { Dispatch, SetStateAction, useState } from "react"
+import {  useState } from "react"
 
-import axios from "axios";
 type FoodImageUrlProps = {
-    setImage: Dispatch<SetStateAction<FormData | undefined>>
+    setImage: (setImage: FormData) => any
 }
 
 const FoodImage = ({ setImage: setImageFood }: FoodImageUrlProps) => {
@@ -17,7 +15,7 @@ const FoodImage = ({ setImage: setImageFood }: FoodImageUrlProps) => {
         if (e.target.files && e.target.files.length > 0) {
             setImageUrl(URL.createObjectURL(e.target.files[0]));
             const file = new FormData()
-            file.append("file",(e.target.files[0]))
+            file.append("file", (e.target.files[0]))
             file.append("upload_preset", uploudPreset)
             file.append("api_key", apiKey)
             setImageFood(file)

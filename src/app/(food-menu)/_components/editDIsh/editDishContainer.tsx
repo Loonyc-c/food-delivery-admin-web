@@ -6,6 +6,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
+    DialogClose
 } from "@/components/ui/dialog"
 
 import EditIcon from "../../_ui/editIcon"
@@ -26,11 +27,13 @@ const EditDishContainer = ({ onEditClick }) => {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle></DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle>
+                        <div>
+                            <h1>Dishes info</h1>
+                            <DialogClose ></DialogClose>
+                        </div>
+                    </DialogTitle>
                         <EditDishContent />
-
-                    </DialogDescription>
                 </DialogHeader>
 
             </DialogContent>

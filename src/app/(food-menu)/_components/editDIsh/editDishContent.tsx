@@ -1,48 +1,68 @@
 'use client'
 
-import { useState } from "react"
+import { useState } from "react";
 import {
     DialogClose,
     DialogFooter
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 
-import FoodNameEdit from "./foodName"
-import FoodIngredientsEdit from "./foodIngredients"
-import FoodPriceEdit from "./foodPrice"
-import FoodCategoryEdit from "./foodCategory"
-type FoodValue = {
-    foodName: string
-    foodPrice: number
-    imageUrl: string
-    ingerdients: string
-}
+import FoodIngredientsEdit from "./foodIngredients";
+import FoodCategoryEdit from "./foodCategory";
+import InputField from "./inputField";
 
-const EditDishContent = () => {
+type FoodEditProps = {
+    foodNameValue: (foodName: string) => void;
+    foodPriceValue: (foodPrice: number) => void;
+};
 
-    const [foodValue, setFoodValue] = useState<FoodValue>({
-        foodName: "",
-        foodPrice: 0,
-        imageUrl: "",
-        ingerdients: ""
-    });
-    const handleFoodNameValue = (value: string) => {
-        setFoodValue({ ...foodValue, foodName: value })
-    }
+const EditDishContent = ({ foodNameValue, foodPriceValue }: FoodEditProps) => {
 
-    const handleFoodPriceValue = (value: number) => {
-        setFoodValue({ ...foodValue, foodPrice: value })
-    }
+    const [foodName, setFoodName] = useState<string>("");
+    const [price, setPrice] = useState<number>(0);
+    const [ingredients, setIngredients] = useState<string>("");
+
+
+    const handleFoodNameChange = (value: string | number) => {
+        if (typeof value === "string") {
+            setFoodName(value);
+            foodNameValue(value);
+        }
+    };
+
+    const handleFoodPriceChange = (value: string | number) => {
+        if (typeof value === "number") {
+            setPrice(value);
+            foodPriceValue(value);
+        }
+    };
+
+
     const handleFoodIngredientsValue = (value: string) => {
-        setFoodValue({ ...foodValue, ingerdients: value })
-    }
+        setIngredients(value);
+    };
 
-    return(
-        <div >
+    return (
+        <div>
             <div className="flex flex-col gap-3">
-                <FoodNameEdit foodNameValue={handleFoodNameValue} />
-                <FoodPriceEdit foodPrice={handleFoodPriceValue} />
-                <FoodIngredientsEdit foodIngredients={handleFoodIngredientsValue}/>
+                <InputField
+                    label="Food Name"
+                    placeholder="Type food name"
+                    type="text"
+                    value={foodName}
+                    onChange={handleFoodNameChange}
+                />
                 <FoodCategoryEdit />
+
+
+                <FoodIngredientsEdit foodIngredients={handleFoodIngredientsValue} />
+                <InputField
+                    label="Price"
+                    placeholder="Type food price"
+                    type="number"
+                    value={price}
+                    onChange={handleFoodPriceChange}
+                />
+
             </div>
             <DialogFooter className="mt-5">
                 <div className="flex justify-end">
@@ -54,7 +74,7 @@ const EditDishContent = () => {
                 </div>
             </DialogFooter>
         </div>
-    )
-}
+    );
+};
 
-export default EditDishContent
+export default EditDishContent;

@@ -29,9 +29,6 @@ const FoodContainer = () => {
         getCategories();
     }, []);
 
-
-
-
     return (
         <div className="w-full h-auto mt-9 flex flex-col gap-4">
             {
