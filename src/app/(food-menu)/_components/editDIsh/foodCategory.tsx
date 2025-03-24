@@ -8,26 +8,59 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useEffect } from "react"
+import { catchCategories } from "@/utils/axios"
 
 
-const FoodCategoryEdit = () => {
+type Categories = {
+  category: string
+  _id: string
+}
+
+type Props = {
+  categoryName:string
+  onCategoryChange:(categoryId:string) => void
+}
 
 
+const FoodCategoryEdit = ({categoryName,onCategoryChange}:Props) => {
+
+  const [categories, setCategories] = useState<Categories[]>([])
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const response = await catchCategories();
+        setCategories(response);
+      } catch (error) {
+        console.error("Error getting categories:", error);
+      }
+    };
+    getCategories();
+  }, []);
+
+  const handleCategoryChange = (categoryId: string) => {
+    console.log("selected category id:", categoryId) 
+    onCategoryChange(categoryId) 
+  }
+   
 
   return (
-    <div className="flex ">
-      <div>
+    <div className="flex justify-between">
+      <div className="">
         <p>Dish category</p>
       </div>
-      <div>
-        <Select >
+      <div className="w-[70%] h-auto">
+        <Select onValueChange={handleCategoryChange} >
           <SelectTrigger>
-            <SelectValue placeholder="Theme" />
+            <SelectValue placeholder={categoryName} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
+            {
+              categories.map((cat) => (
+                <SelectItem key={cat._id} value={cat._id}>{cat.category}</SelectItem>
+              ))
+            }
           </SelectContent>
         </Select>
       </div>

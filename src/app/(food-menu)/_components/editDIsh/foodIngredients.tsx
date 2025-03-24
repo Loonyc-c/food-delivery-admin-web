@@ -1,20 +1,20 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Textarea } from "@/components/ui/textarea"
+import { Coming_Soon } from "next/font/google"
 
 type FoodIngredientsProps = {
-    foodIngredients: (foodIngredients: string) => void;
+    value:string
+    onChange:(value:string) => void
 }
 
-const FoodIngredientsEdit = ({foodIngredients}:FoodIngredientsProps) => {
-
-    const [ingredients, setIngredients] = useState("")
+const FoodIngredientsEdit = ({value,onChange}:FoodIngredientsProps) => {
 
     const ingredientsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setIngredients(e.target.value)
-        foodIngredients(e.target.value)
-    }
+        const newValue = e.target.value;
+        onChange(newValue); 
+    };
 
     return (
 
@@ -25,7 +25,7 @@ const FoodIngredientsEdit = ({foodIngredients}:FoodIngredientsProps) => {
              className="w-full h-[100px]"
              placeholder="List ingredients"
              onChange={ingredientsChange} 
-             value={ingredients}/>
+             value={value}/>
         </div>
     )
 }

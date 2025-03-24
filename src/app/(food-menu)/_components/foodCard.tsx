@@ -11,7 +11,7 @@ type Foods = {
     foodName: string
     price: number
     ingredients: string[]
-    id: string
+    _id: string
 }
 
 type FoodCardProps = {
@@ -23,7 +23,7 @@ type FoodCardProps = {
 const FoodCard = ({ categoryId, categoryName }: FoodCardProps) => {
 
     const [foods, setFoods] = useState<Foods[]>([])
-    const [selectedFoodId, setSelectedFoodId] = useState("")
+    const [selectedFoods, setSelectedFoods] = useState<Foods | null>(null)
 
     useEffect(() => {
         const getFoods = async () => {
@@ -41,8 +41,9 @@ const FoodCard = ({ categoryId, categoryName }: FoodCardProps) => {
     const filteredFoods = foods.filter(food => food.category === categoryId);
 
     const handleEditDishClick = (id: string) => {
-        setSelectedFoodId(id);
-        console.log("Selected Food ID:", id);
+        const selectedFood = foods.find(food => food._id === id) || null;
+        setSelectedFoods(selectedFood)
+        console.log("Selected Food:", selectedFood);
     }
 
     return (
@@ -56,7 +57,9 @@ const FoodCard = ({ categoryId, categoryName }: FoodCardProps) => {
                                 src={item.image}
                                 className="w-full h-48 object-cover rounded-lg"
                             />
-                            <EditDishContainer onEditClick={() => handleEditDishClick(item.id)}
+                            <EditDishContainer onEditClick={() => handleEditDishClick(item._id)}
+                            selectedFood={selectedFoods}
+                            categoryName={categoryName}
                             />
                         </div>
                         <div className="w-full h-auto">

@@ -1,5 +1,14 @@
 
 
+// type Foods = {
+//     category: string
+//     image: string
+//     foodName: string
+//     price: number
+//     ingredients: string[]
+//     _id: string
+// }
+
 type InputProps = {
     label: string
     value:string | number
@@ -8,16 +17,16 @@ type InputProps = {
     placeholder?: string;  
 }
 
-const InputField = ({type,label,value, onChange,placeholder}:InputProps) => {
+const InputField = ({type,label,value, onChange}:InputProps) => {
     const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         const newValue = type === "number" ? parseFloat(e.target.value) : e.target.value
         onChange(newValue)
     }
+
     return(
         <div className="w-full h-auto flex justify-between items-center">
             <p>{label}</p>
             <input 
-            placeholder={placeholder}
             type={type}
             value={value}
             onChange={handleChange}

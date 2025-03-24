@@ -16,7 +16,7 @@ type Categories = {
 const FoodContainer = () => {
 
     const [categories, setCategories] = useState<Categories[]>([])
-
+    
     useEffect(() => {
         const getCategories = async () => {
             try {
@@ -41,7 +41,6 @@ const FoodContainer = () => {
                     </div>
                 ))
             }
-
 
         </div>
     )

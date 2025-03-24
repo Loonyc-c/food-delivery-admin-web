@@ -11,14 +11,23 @@ import {
 
 import EditIcon from "../../_ui/editIcon"
 import EditDishContent from "./editDishContent"
-
-type PropsType = {
-    foodId: string;
-    id: string
+type Foods = {
+    category: string
+    image: string
+    foodName: string
+    price: number
+    ingredients: string[]
+    _id: string
 }
 
-const EditDishContainer = ({ onEditClick }) => {
+type PropsType = {
+    onEditClick:() => void
+    selectedFood: Foods | null;
+    categoryName:string
+}
 
+const EditDishContainer = ({ onEditClick,selectedFood, categoryName}:PropsType) => {
+   
     return (
         <Dialog>
             <DialogTrigger>
@@ -33,7 +42,8 @@ const EditDishContainer = ({ onEditClick }) => {
                             <DialogClose ></DialogClose>
                         </div>
                     </DialogTitle>
-                        <EditDishContent />
+                        <EditDishContent selectedFood={selectedFood}
+                        categoryName={categoryName}/>
                 </DialogHeader>
 
             </DialogContent>
