@@ -2,9 +2,8 @@
 
 import { catchFoods } from "@/utils/axios"
 import { useEffect, useState } from "react"
-import AddNewDish from "./addNewDish/addNewDish"
-import EditDishContainer from "./editDIsh/editDishContainer"
-
+import AddNewDish from "./addNewDish/AddNewDish"
+import EditDishContainer from "./editDIsh/EditDishContainer"
 type Foods = {
     category: string
     image: string

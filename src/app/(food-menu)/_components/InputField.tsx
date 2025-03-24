@@ -1,14 +1,5 @@
 
 
-// type Foods = {
-//     category: string
-//     image: string
-//     foodName: string
-//     price: number
-//     ingredients: string[]
-//     _id: string
-// }
-
 type InputProps = {
     label: string
     value:string | number

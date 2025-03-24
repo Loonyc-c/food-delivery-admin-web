@@ -8,7 +8,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 
-import AddNewDishContent from "./addNewDishContent"
+import AddNewDishContent from "./AddNewDishContent"
 
 
 type CategoryNameProps = {
@@ -35,7 +35,6 @@ const AddNewDish = ({ categoryName,categoryId }: CategoryNameProps) => {
                     </DialogDescription>
                 </DialogHeader>
                 <AddNewDishContent categoryId={categoryId}/>
-
             </DialogContent>
         </Dialog>
     )

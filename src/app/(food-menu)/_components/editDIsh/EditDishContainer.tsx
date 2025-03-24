@@ -1,4 +1,3 @@
-import CrossIcon from "../../_ui/crossIcon"
 import {
     Dialog,
     DialogContent,
@@ -10,7 +9,7 @@ import {
 } from "@/components/ui/dialog"
 
 import EditIcon from "../../_ui/editIcon"
-import EditDishContent from "./editDishContent"
+import EditDishContent from "./EditDishContent"
 type Foods = {
     category: string
     image: string
@@ -21,13 +20,13 @@ type Foods = {
 }
 
 type PropsType = {
-    onEditClick:() => void
+    onEditClick: () => void
     selectedFood: Foods | null;
-    categoryName:string
+    categoryName: string
 }
 
-const EditDishContainer = ({ onEditClick,selectedFood, categoryName}:PropsType) => {
-   
+const EditDishContainer = ({ onEditClick, selectedFood, categoryName }: PropsType) => {
+
     return (
         <Dialog>
             <DialogTrigger>
@@ -42,9 +41,9 @@ const EditDishContainer = ({ onEditClick,selectedFood, categoryName}:PropsType) 
                             <DialogClose ></DialogClose>
                         </div>
                     </DialogTitle>
-                        <EditDishContent selectedFood={selectedFood}
-                        categoryName={categoryName}/>
                 </DialogHeader>
+                <EditDishContent selectedFood={selectedFood}
+                    categoryName={categoryName} />
 
             </DialogContent>
         </Dialog>

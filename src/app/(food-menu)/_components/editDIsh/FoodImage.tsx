@@ -1,34 +1,39 @@
-import { headers } from "next/headers";
 import { Dispatch, SetStateAction, useState } from "react"
+import { useEffect } from "react"
 
-import axios from "axios";
 type FoodImageUrlProps = {
-    setImage: Dispatch<SetStateAction<FormData | undefined>>
+    setImage: (formData: FormData | undefined) => void;
+    image: string
 }
 
-const FoodImageEdit = ({ setImage: setImageFood }: FoodImageUrlProps) => {
+const FoodImageEdit = ({ setImage: setImageFood, image }: FoodImageUrlProps) => {
 
-    const uploudPreset = "food_delivery"
+    const uploadPreset = "food_delivery"
     const apiKey = "192382554631654"
 
     const [imageUrl, setImageUrl] = useState<string>("");
 
+    useEffect(() => {
+        setImageUrl(image);
+    }, [image]);
+
+
     const imageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            setImageUrl(URL.createObjectURL(e.target.files[0]));
-            const file = new FormData()
-            file.append("file",(e.target.files[0]))
-            file.append("upload_preset", uploudPreset)
-            file.append("api_key", apiKey)
-            setImageFood(file)
+            const file = e.target.files[0];
+            const newImageUrl = URL.createObjectURL(file);
+            setImageUrl(newImageUrl);
+
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", uploadPreset);
+            formData.append("api_key", apiKey);
+            setImageFood(formData);
         }
     };
-
     const removeImage = () => {
         setImageUrl("");
     };
-
-
 
     return (
         <div className="flex flex-col gap-[5px] w-full h-auto cursor-pointer ">
@@ -62,7 +67,6 @@ const FoodImageEdit = ({ setImage: setImageFood }: FoodImageUrlProps) => {
                 )}
             </div>
         </div>
-
     )
 }
 

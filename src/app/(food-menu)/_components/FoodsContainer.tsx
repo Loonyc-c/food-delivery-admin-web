@@ -2,8 +2,7 @@
 
 import { catchCategories, catchFoods } from "@/utils/axios"
 import { useEffect, useState } from "react"
-import FoodCard from "./foodCard"
-import AddNewDish from "./addNewDish/addNewDish"
+import FoodCard from "./FoodCard"
 
 
 type Categories = {

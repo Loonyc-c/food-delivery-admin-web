@@ -1,6 +1,5 @@
-import NavigationBar from "../_components/navigationBar"
-import FoodContainer from "../_components/foodsContainer"
-
+import NavigationBar from "../_components/NavigationBar"
+import FoodContainer from "../_components/FoodsContainer"
 
 const FoodMenu = () => {
     return(
