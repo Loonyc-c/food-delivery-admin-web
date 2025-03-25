@@ -1,30 +1,28 @@
-'use client'
+"use client";
 
-import { useState } from "react"
+import { ChangeEvent } from "react";
 
 type FoodNameProps = {
-    value: (foodName: string) => void;
-}
+  value: string;
+  onChange: (value: string) => void;
+};
 
-const FoodName = ({value}:FoodNameProps) => {
+const FoodName = ({ value, onChange }: FoodNameProps) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    onChange(event?.target?.value);
+  };
 
-    const [foodName, setFoodName] = useState("")
+  return (
+    <div className="w-[50%] h-auto">
+      <p>Food name</p>
+      <input
+        value={value}
+        onChange={handleChange}
+        placeholder="Type food name"
+        className="border rounded-lg p-2 text-[14px] w-full h-auto"
+      />
+    </div>
+  );
+};
 
-    const foodNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFoodName(e.target.value)
-        value(e.target.value)
-    }
-
-    return (
-        <div className="w-[50%] h-auto">
-            <p>Food name</p>
-            <input
-                className="border rounded-lg p-2 text-[14px] w-full h-auto"
-                placeholder="Type food name"
-                onChange={foodNameChange}
-            />
-        </div>
-    )
-}
-
-export default FoodName
+export default FoodName;

@@ -23,54 +23,54 @@ const AddCategoriesContainer = () => {
         setCategory(e.target.value)
     }
 
-    const handleAddCategoryButton =  async () => {
-        try{
-            const response = await axios.post("http://localhost:9999/categories",{
+    const handleAddCategoryButton = async () => {
+        try {
+            const response = await axios.post("http://localhost:9999/categories", {
                 category
             })
             return response.data
-        }catch (error) {
+        } catch (error) {
             console.log("Error adding category:", error);
         }
     }
 
-return (
+    return (
 
-    <Dialog>
-        <DialogTrigger asChild>
-            <div className="w-9 h-9 rounded-full bg-[#EF4444] flex justify-center items-center">
-                <CrossIcon />
-            </div>
+        <Dialog>
+            <DialogTrigger asChild>
+                <div className="w-9 h-9 rounded-full bg-[#EF4444] flex justify-center items-center">
+                    <CrossIcon />
+                </div>
 
-        </DialogTrigger>
-        <DialogContent >
-            <DialogHeader className="flex justify-center">
-                <DialogTitle>Add new category</DialogTitle>
-                <DialogDescription>
-                </DialogDescription>
-            </DialogHeader>
+            </DialogTrigger>
+            <DialogContent >
+                <DialogHeader className="flex justify-center">
+                    <DialogTitle>Add new category</DialogTitle>
+                    <DialogDescription>
+                    </DialogDescription>
+                </DialogHeader>
 
-            <div>
-                <h1 className="font-semibold mb-2">Category name</h1>
-                <input
-                    placeholder="Type category name"
-                    className="w-full border rounded-lg p-2 text-[14px]"
-                    onChange={onChange} />
-            </div>
+                <div>
+                    <h1 className="font-semibold mb-2">Category name</h1>
+                    <input
+                        placeholder="Type category name"
+                        className="w-full border rounded-lg p-2 text-[14px]"
+                        onChange={onChange} />
+                </div>
 
-            <DialogFooter className="sm:justify-start">
-                <DialogClose asChild>
-                    <button
-                        className="bg-black text-white rounded-lg py-2 px-4 text-[14px]"
-                        onClick={handleAddCategoryButton}
-                    >
-                        Add category
-                    </button>
-                </DialogClose>
-            </DialogFooter>
-        </DialogContent>
-    </Dialog>
-)
+                <DialogFooter className="sm:justify-start">
+                    <DialogClose asChild>
+                        <button
+                            className="bg-black text-white rounded-lg py-2 px-4 text-[14px]"
+                            onClick={handleAddCategoryButton}
+                        >
+                            Add category
+                        </button>
+                    </DialogClose>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
+    )
 }
 
 export default AddCategoriesContainer

@@ -10,7 +10,6 @@ import FoodIngredientsEdit from "./FoodIngredients";
 import FoodCategoryEdit from "./FoodCategory";
 import InputField from "../InputField";
 import FoodImageEdit from "./FoodImage";
-import axios from "axios";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { updateFood } from "../../_utils/updateFood";
 import { foodValidationSchema } from "../../_utils/validationSchemas";
@@ -41,23 +40,14 @@ const EditDishContent = ({ selectedFood, categoryName }: FoodEditProps) => (
         validationSchema={foodValidationSchema}
         onSubmit={async (values) => {
             try {
-                const cloudinaryResponse = await axios.post(
-                    'https://api.cloudinary.com/v1_1/ddeq6vbyn/image/upload',
-                    values.image,
-                    {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }
-                );
-                const imageUrl = cloudinaryResponse.data.secure_url;
-
                 const updatedValues = {
-                    ...values,
-                    image: imageUrl,
-                    ingredients: values.ingredients.split(',').map(i => i.trim())
+                    foodName: values.foodName,
+                    price: values.price,
+                    ingredients: values.ingredients.split(',').map(i => i.trim()),
+                    category: values.category,
+                    image: values.image,
                 };
-                
+
                 const updatedFood = await updateFood(selectedFood?._id, updatedValues);
                 console.log("Food updated successfully", updatedFood);
             } catch (error) {

@@ -2,7 +2,7 @@ import NavigationBar from "../_components/NavigationBar"
 import FoodContainer from "../_components/FoodsContainer"
 
 const FoodMenu = () => {
-    return(
+    return (
         <div className="w-screen h-screen p-7 ">
             <NavigationBar />
             <FoodContainer />

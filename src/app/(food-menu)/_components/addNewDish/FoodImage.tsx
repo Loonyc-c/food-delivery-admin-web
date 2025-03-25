@@ -1,4 +1,4 @@
-import {  useState } from "react"
+import { useState } from "react"
 
 type FoodImageUrlProps = {
     setImage: (setImage: FormData) => any
@@ -25,8 +25,6 @@ const FoodImage = ({ setImage: setImageFood }: FoodImageUrlProps) => {
     const removeImage = () => {
         setImageUrl("");
     };
-
-
 
     return (
         <div className="flex flex-col gap-[5px] w-full h-auto cursor-pointer ">
