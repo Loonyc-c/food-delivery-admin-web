@@ -21,3 +21,7 @@ export const editDishValidationSchema = Yup.object({
   category: Yup.string().required("Category is required"),
   image: Yup.string().required("Image is required"),
 });
+
+export const addCategoryValidationSchema = Yup.object({
+  category: Yup.string().required("Category is required"),
+});

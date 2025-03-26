@@ -9,21 +9,28 @@ import { Formik, Form } from "formik";
 import { foodValidationSchema } from "../../_utils/validationSchemas";
 import InputField from "../InputField";
 import { toast } from "react-toastify";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type PropsType = {
   categoryId: string;
 };
 
 const AddNewDishContent = ({ categoryId }: PropsType) => {
-  const handleAddDishButton = async (values: any, { setSubmitting }: any) => {
-    try {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: async (values: {
+      foodName: string;
+      price: number;
+      image: string | null;
+      ingredients: string[];
+      category: string;
+    }) => {
       const cloudinaryResponse = await axios.post(
         "https://api.cloudinary.com/v1_1/ddeq6vbyn/image/upload",
         values.image
       );
 
       const imageUrl = cloudinaryResponse.data.secure_url;
-      console.log(imageUrl);
 
       const foodResponse = await axios.post("http://localhost:9999/food", {
         foodName: values.foodName,
@@ -32,15 +39,26 @@ const AddNewDishContent = ({ categoryId }: PropsType) => {
         ingredients: values.ingredients,
         category: categoryId,
       });
-
-      console.log("Food added successfully:", foodResponse.data);
-      toast.success("Dish added successfully !");
-      setSubmitting(false);
-    } catch (error) {
-      toast.error("Something went wrong.");
-      setSubmitting(false);
-    }
-  };
+      return foodResponse;
+    },
+    onSuccess: async () => {
+      try {
+        await queryClient.invalidateQueries({ queryKey: ["foods"] });
+        toast.success("Successfully added dish !", {
+          position: "top-right",
+          autoClose: 5000,
+        });
+      } catch (error) {
+        console.error("Error in onSuccess:", error);
+      }
+    },
+    onError: (error) => {
+      toast.error(`Failed to add dish: ${error.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+      });
+    },
+  });
 
   return (
     <Formik
@@ -51,7 +69,16 @@ const AddNewDishContent = ({ categoryId }: PropsType) => {
         ingredients: "",
       }}
       validationSchema={foodValidationSchema}
-      onSubmit={handleAddDishButton}
+      onSubmit={async (values) => {
+        const addedFood = {
+          foodName: values.foodName,
+          price: values.price,
+          image: values.image,
+          ingredients: values.ingredients.split(",").map((i) => i.trim()),
+          category: categoryId,
+        };
+        mutation.mutate(addedFood);
+      }}
     >
       {({ setFieldValue, isSubmitting, errors, values, touched }) => (
         <Form>
@@ -92,15 +119,17 @@ const AddNewDishContent = ({ categoryId }: PropsType) => {
           </div>
 
           <DialogFooter className="mt-5">
-            <div className="flex justify-end">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-black text-white rounded-lg py-2 px-4 text-[14px]"
-              >
-                {isSubmitting ? "Adding..." : "Add Dish"}
-              </button>
-            </div>
+            <DialogClose asChild>
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-black text-white rounded-lg py-2 px-4 text-[14px]"
+                >
+                  {isSubmitting ? "Adding..." : "Add Dish"}
+                </button>
+              </div>
+            </DialogClose>
           </DialogFooter>
         </Form>
       )}

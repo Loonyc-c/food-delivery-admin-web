@@ -9,9 +9,10 @@ import FoodCategoryEdit from "./FoodCategory";
 import InputField from "../InputField";
 import FoodImageEdit from "./FoodImage";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { updateFood } from "../../_utils/updateFood";
+import { updateFood } from "../../_utils/post";
 import { editDishValidationSchema } from "../../_utils/validationSchemas";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 type Foods = {
   category: string;
@@ -38,6 +39,7 @@ const EditDishContent = ({ selectedFood, categoryName }: FoodEditProps) => {
       category: string;
       image: string | null;
     }) => {
+      console.log("mutation values", values);
       if (selectedFood?._id) {
         const result = await updateFood(selectedFood._id, values);
         return result;
@@ -73,12 +75,18 @@ const EditDishContent = ({ selectedFood, categoryName }: FoodEditProps) => {
       }}
       validationSchema={editDishValidationSchema}
       onSubmit={async (values) => {
+        const cloudinaryResponse = await axios.post(
+          "https://api.cloudinary.com/v1_1/ddeq6vbyn/image/upload",
+          values.image
+        );
+        const imageUrl = cloudinaryResponse.data.secure_url;
+
         const updatedValues = {
           foodName: values.foodName,
           price: values.price,
           ingredients: values.ingredients.split(",").map((i) => i.trim()),
           category: values.category,
-          image: values.image,
+          image: imageUrl,
         };
 
         mutation.mutate(updatedValues);
