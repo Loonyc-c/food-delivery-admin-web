@@ -5,6 +5,7 @@ import AuthProvider from "../provider/AuthProvider";
 import { ToastContainer } from "react-toastify";
 import QueryProvider from "@/provider/QueryProvider";
 import "./globals.css";
+import { UserProvider } from "@/provider/UserProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,8 +34,10 @@ export default function RootLayout({
       >
         <AuthProvider>
           <QueryProvider>
-            <ToastContainer />
-            {children}
+            <UserProvider>
+              <ToastContainer />
+              {children}
+            </UserProvider>
           </QueryProvider>
         </AuthProvider>
       </body>

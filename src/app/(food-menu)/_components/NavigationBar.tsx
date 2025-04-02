@@ -3,6 +3,7 @@
 import { catchCategories, catchFoods } from "@/utils/axios";
 import AddCategoriesContainer from "./addCategories/AddCategoriesContainer";
 import { useQuery } from "@tanstack/react-query";
+import Profile from "./Profile";
 
 type Categories = {
   category: string;
@@ -38,8 +39,10 @@ const NavigationBar = () => {
   }
 
   return (
-    <div className="w-full h-auto ">
-      <div className="w-full h-[50px] text-black"> profile picture here</div>
+    <div className="w-full h-auto cursor-default">
+      <div className="w-full h-[50px] text-black">
+        <Profile />
+      </div>
       <div className="py-8 px-5 flex flex-col gap-4 bg-white rounded-lg">
         <h1 className="text-[24px] font-semibold text-black">
           Dish categories
@@ -52,7 +55,7 @@ const NavigationBar = () => {
             return (
               <button
                 key={i}
-                className="bg-white py-2 px-3 rounded-full text-black flex gap-3 border"
+                className="bg-white py-2 px-3 cursor-default rounded-full text-black flex gap-3 border"
               >
                 {category.category}
                 <div className="bg-black text-white rounded-full px-3">

@@ -73,7 +73,7 @@ const AddCategoriesContainer = () => {
         // <Form onSubmit={handleSubmit}>
         <Dialog>
           <DialogTrigger asChild>
-            <div className="w-9 h-9 rounded-full bg-[#EF4444] flex justify-center items-center">
+            <div className="w-9 h-9 rounded-full bg-[#EF4444] flex justify-center items-center cursor-pointer">
               <CrossIcon />
             </div>
           </DialogTrigger>
@@ -99,16 +99,16 @@ const AddCategoriesContainer = () => {
             </div>
 
             <DialogFooter className="sm:justify-start">
-              {/* <DialogClose asChild> */}
-              <button
-                className="bg-black text-white rounded-lg py-2 px-4 text-[14px]"
-                type="submit"
-                disabled={isSubmitting}
-                onClick={() => handleSubmit()}
-              >
-                Add category
-              </button>
-              {/* </DialogClose> */}
+              <DialogClose asChild>
+                <button
+                  className="bg-black text-white rounded-lg py-2 px-4 text-[14px]"
+                  type="submit"
+                  disabled={isSubmitting}
+                  onClick={() => handleSubmit()}
+                >
+                  Add category
+                </button>
+              </DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>

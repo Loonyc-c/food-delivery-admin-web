@@ -1,11 +1,19 @@
 export const emailValidation = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!email) {
-        return "Мэйл хаягаа оруулна уу !";
-    } else if (!emailRegex.test(email)) {
-        return "Зөв мэйл хаяг оруулна уу !";
-    }
+  if (!email) {
+    return "Please enter your email!";
+  } else if (!emailRegex.test(email)) {
+    return "Please enter a valid email address!";
+  }
 
-    return "";
+  return "";
+};
+
+export const signInpasswordValidation = (passwordValue: string) => {
+  if (!passwordValue) {
+    return "Please enter your password!";
+  }
+
+  return "";
 };
