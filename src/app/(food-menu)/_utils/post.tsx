@@ -11,7 +11,7 @@ type FoodData = {
 export const updateFood = async (id: string, updatedData: FoodData) => {
   try {
     const response = await axios.put(
-      `http://localhost:9999/food/${id}`,
+      `https://food-delivery-service-b295.onrender.com/food/${id}`,
       updatedData
     );
     return response.data;

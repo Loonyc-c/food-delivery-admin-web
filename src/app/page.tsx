@@ -6,6 +6,7 @@ import { emailValidation } from "@/utils/validations";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { useUser } from "@/provider/UserProvider";
 
 type LoginInputType = {
   email: string;
@@ -15,6 +16,7 @@ type LoginInputType = {
 type LoginErrorType = {
   email?: string;
   password?: string;
+  role?: string;
 };
 
 export default function Home() {
@@ -24,6 +26,7 @@ export default function Home() {
   });
   const [error, setError] = useState<LoginErrorType>({});
   const router = useRouter();
+  const { role } = useUser();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -41,12 +44,13 @@ export default function Home() {
       setError({ ...error, email: emailError });
       return;
     }
-
-    setError({});
-
+    if (role === "USER") {
+      setError({ ...error, role: "User don't have permission" });
+      return;
+    }
     try {
       const response = await axios.post(
-        "http://localhost:9999/auth/sign-in",
+        "https://food-delivery-service-b295.onrender.com/auth/sign-in",
         loginValue
       );
 
@@ -93,6 +97,9 @@ export default function Home() {
               />
               {error.email && (
                 <p className="text-red-500 text-sm">{error.email}</p>
+              )}
+              {error.role && (
+                <p className="text-red-500 text-sm">{error.role}</p>
               )}
             </div>
             <div className="mt-[15px]">

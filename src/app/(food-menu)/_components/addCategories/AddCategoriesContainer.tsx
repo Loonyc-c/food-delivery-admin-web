@@ -23,7 +23,7 @@ const AddCategoriesContainer = () => {
     mutationFn: async (values: { category: string }) => {
       try {
         const response = await axios.post(
-          "http://localhost:9999/categories",
+          "https://food-delivery-service-b295.onrender.com/categories",
           values
         );
         return response.data;

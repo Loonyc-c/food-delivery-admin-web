@@ -32,13 +32,16 @@ const AddNewDishContent = ({ categoryId }: PropsType) => {
 
       const imageUrl = cloudinaryResponse.data.secure_url;
 
-      const foodResponse = await axios.post("http://localhost:9999/food", {
-        foodName: values.foodName,
-        price: values.price,
-        image: imageUrl,
-        ingredients: values.ingredients,
-        category: categoryId,
-      });
+      const foodResponse = await axios.post(
+        "https://food-delivery-service-b295.onrender.com/food",
+        {
+          foodName: values.foodName,
+          price: values.price,
+          image: imageUrl,
+          ingredients: values.ingredients,
+          category: categoryId,
+        }
+      );
       return foodResponse;
     },
     onSuccess: async () => {
